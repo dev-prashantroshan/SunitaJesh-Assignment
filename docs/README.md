@@ -24,7 +24,7 @@ This folder contains the documentation package for the full-stack fitness assess
 ## Deployment
 
 - [Local Setup](deployment/LOCAL_SETUP.md): run the project locally.
-- [Docker](deployment/DOCKER.md): planned optional Docker setup status.
+- [Docker](deployment/DOCKER.md): verified Docker Compose setup, operation, persistence, and troubleshooting.
 - [Troubleshooting](deployment/TROUBLESHOOTING.md): setup and runtime fixes.
 
 ## Release Notes

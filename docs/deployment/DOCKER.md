@@ -1,45 +1,132 @@
-﻿# Docker Setup
+# Docker Setup
 
-Docker is optional and bonus for this project.
+The verified Docker Compose setup runs MongoDB 7, the compiled Express backend, and the Vite frontend served by NGINX.
 
-## Current Status
-
-Docker setup is planned but not yet included in the current repository.
-
-The repository currently does not include Dockerfile or Docker Compose files for the backend, frontend, or MongoDB. Because of that, this documentation does not present Docker commands as working commands.
-
-## Prerequisites for Future Docker Setup
+## Prerequisites
 
 - Docker Desktop
-- Docker Compose
+- Docker Compose v2
 
-Verify:
+Confirm Docker Desktop is running:
 
 ```powershell
 docker --version
 docker compose version
+docker ps
 ```
 
-## Intended Future Workflow
+If `docker ps` cannot connect to the Docker API, start or restart Docker Desktop and wait for its engine to become ready.
 
-After Docker files are added, the intended workflow would be:
+## Start the Application
 
-1. Build backend container.
-2. Build frontend container.
-3. Start MongoDB container.
-4. Run seed command.
-5. Start backend and frontend services.
-6. Open the frontend in a browser.
+From the repository root, build and start all services with one command:
 
-## To Update After Docker Compose Is Added
+```powershell
+docker compose up -d --build
+```
 
-Document the real commands only after verifying them. The future document should include:
+MongoDB must become healthy before the backend starts. Compose then starts the frontend after the backend container has started.
 
-- Dockerfile paths.
-- Compose file path.
-- Environment variable handling.
-- MongoDB volume strategy.
-- Seed command.
-- Service URLs.
-- Shutdown command.
-- Troubleshooting for Docker daemon and ports.
+Seed the database explicitly after the first startup:
+
+```powershell
+docker compose exec backend npm run seed
+```
+
+Seeding is intentionally not automatic because it clears and repopulates the application collections.
+
+## Service URLs and Ports
+
+| Service | Address |
+| --- | --- |
+| Frontend | `http://localhost:5173` |
+| Backend health | `http://localhost:5000/api/health` |
+| Backend API | `http://localhost:5000/api` |
+| MongoDB host port | `localhost:27017` |
+
+The frontend is built with `VITE_API_BASE_URL=http://localhost:5000`, which is reachable by the user's browser. NGINX serves static assets and falls back to `index.html` for React Router routes.
+
+## Status and Logs
+
+```powershell
+docker compose ps
+docker compose logs -f
+```
+
+To follow one service only:
+
+```powershell
+docker compose logs -f backend
+docker compose logs -f frontend
+docker compose logs -f mongo
+```
+
+## Stop and Restart
+
+Stop and remove the containers and network:
+
+```powershell
+docker compose down
+```
+
+The named `mongo-data` volume remains, so seeded data persists across `down` and the next startup:
+
+```powershell
+docker compose up -d
+```
+
+## Reset the Database
+
+This destructive reset removes the MongoDB volume and all stored application data:
+
+```powershell
+docker compose down -v
+docker compose up -d
+docker compose exec backend npm run seed
+```
+
+Use `down -v` only when a complete database reset is intended.
+
+## Rebuild Images
+
+Rebuild after Dockerfile, dependency, frontend environment, or application source changes:
+
+```powershell
+docker compose build
+docker compose up -d
+```
+
+To force a clean image build:
+
+```powershell
+docker compose build --no-cache
+docker compose up -d
+```
+
+## Port Conflicts
+
+The setup requires host ports `5173`, `5000`, and `27017`. If Compose reports that a port is already allocated:
+
+1. Stop the local frontend, backend, or MongoDB process using that port.
+2. Check existing containers with `docker ps`.
+3. Stop an old Compose stack with `docker compose down` from its project directory.
+4. Run `docker compose up -d` again.
+
+## Docker Daemon Troubleshooting
+
+If commands report that they cannot connect to `docker_engine` or the Docker API:
+
+1. Open Docker Desktop.
+2. Wait until the engine reports that it is running.
+3. Run `docker ps`.
+4. Restart Docker Desktop if the error continues.
+
+Inspect startup failures with:
+
+```powershell
+docker compose ps
+docker compose logs backend
+docker compose logs mongo
+```
+
+The backend waits for the Mongo health check, but application readiness can take a brief additional moment while Mongoose connects.

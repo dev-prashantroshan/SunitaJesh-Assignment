@@ -90,7 +90,7 @@ Install these before setup:
 - Git.
 - MongoDB Community Server or a MongoDB Atlas connection string.
 - Optional: Postman for manual API testing.
-- Optional: Docker Desktop. Docker setup is planned optional setup and is not implemented in this repository yet.
+- Optional: Docker Desktop with Docker Compose for the containerized setup.
 
 Verify installations in PowerShell:
 
@@ -103,7 +103,7 @@ docker --version
 docker compose version
 ```
 
-If Docker commands fail, that is acceptable for this project because Docker files are not included yet.
+If Docker commands fail, start Docker Desktop and confirm `docker ps` succeeds before using the containerized setup.
 
 ## Local Setup
 
@@ -282,7 +282,7 @@ Presentation-only values include Thomas as the sample user, the avatar, the weig
 - The frontend targets a 375 x 812 mobile design.
 - Static map assets are used instead of a live map SDK.
 - The external content cache is in memory, so it resets when the backend restarts.
-- Docker and deployment are documented as optional future work, not implemented behavior.
+- Docker Compose runs the frontend, backend, and MongoDB with persistent database storage.
 
 ## Known Limitations
 
@@ -296,7 +296,6 @@ Presentation-only values include Thomas as the sample user, the avatar, the weig
 
 - Add authentication.
 - Add frontend tests.
-- Add Docker Compose.
 - Add deployment configuration.
 - Replace static maps with real route rendering.
 - Add richer error states and accessibility testing.
@@ -311,7 +310,21 @@ A CodeSandbox link can be added here after the project is exported or deployed. 
 
 ## Docker
 
-Docker is planned optional setup. Docker files are not included in the current repository, so Docker commands are not documented as working commands.
+Start the complete application from the repository root:
+
+```powershell
+docker compose up -d --build
+docker compose exec backend npm run seed
+```
+
+Open the frontend at `http://localhost:5173` or check the backend at `http://localhost:5000/api/health`. MongoDB is exposed on host port `27017` and stores data in the named `mongo-data` volume.
+
+```powershell
+docker compose logs -f
+docker compose down
+```
+
+Stopping the stack preserves data. To delete the database volume and reset everything, run `docker compose down -v`, then start and seed again. See [`docs/deployment/DOCKER.md`](docs/deployment/DOCKER.md) for rebuild and troubleshooting instructions.
 
 ## Final Verification Checklist
 

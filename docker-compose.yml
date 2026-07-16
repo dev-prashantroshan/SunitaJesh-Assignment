@@ -1,0 +1,45 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: fitness-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./backend
+    container_name: fitness-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo:27017/sunita-jesh-assignment
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:5000
+    container_name: fitness-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
