@@ -1,0 +1,230 @@
+{
+  "info": {
+    "name": "Fitness Assessment Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "deviceId",
+      "value": "device-thomas-001"
+    },
+    {
+      "key": "journeyId",
+      "value": ""
+    },
+    {
+      "key": "runId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /api/health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Steps",
+      "item": [
+        {
+          "name": "GET /api/steps",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/steps"
+          }
+        },
+        {
+          "name": "GET /api/steps/:stepId",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/steps/2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Onboarding",
+      "item": [
+        {
+          "name": "GET /api/onboarding",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/onboarding"
+          }
+        },
+        {
+          "name": "PUT /api/onboarding/answers/:stepId",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"selectedOptionIds\": [\"basketball\", \"football\"],\n  \"details\": \"\"\n}"
+            },
+            "url": "{{baseUrl}}/api/onboarding/answers/2"
+          }
+        },
+        {
+          "name": "PUT /api/onboarding/answers/6 with details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"selectedOptionIds\": [\"health-yes\"],\n  \"details\": \"Minor knee discomfort during long runs.\"\n}"
+            },
+            "url": "{{baseUrl}}/api/onboarding/answers/6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Journeys",
+      "item": [
+        {
+          "name": "GET /api/journeys",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/journeys"
+          }
+        },
+        {
+          "name": "GET /api/journeys/:id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/journeys/{{journeyId}}"
+          }
+        },
+        {
+          "name": "POST /api/journeys/:id/favorite",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/journeys/{{journeyId}}/favorite"
+          }
+        },
+        {
+          "name": "DELETE /api/journeys/:id/favorite",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/journeys/{{journeyId}}/favorite"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Runs",
+      "item": [
+        {
+          "name": "GET /api/runs/current",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/runs/current"
+          }
+        },
+        {
+          "name": "GET /api/runs/:id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/runs/{{runId}}"
+          }
+        },
+        {
+          "name": "GET /api/runs/:id/route",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-device-id",
+                "value": "{{deviceId}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/runs/{{runId}}/route"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "item": [
+        {
+          "name": "GET /api/content/placeholder",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/content/placeholder"
+          }
+        }
+      ]
+    }
+  ]
+}

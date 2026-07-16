@@ -1,0 +1,44 @@
+.pill {
+  width: auto;
+  height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid #d8e0e8;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+  box-shadow: 0 5px 14px rgba(57, 67, 79, 0.03);
+  cursor: pointer;
+}
+
+.selected {
+  border-color: var(--color-yellow);
+  color: var(--color-white);
+  background: var(--color-yellow);
+  box-shadow: 0 12px 22px rgba(249, 189, 62, 0.28);
+}
+
+.iconWrap {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 20px;
+  color: currentColor;
+}
+
+.iconWrap svg {
+  width: 19px;
+  height: 19px;
+}
+
+.label {
+  color: currentColor;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+}

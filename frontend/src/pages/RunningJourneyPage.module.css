@@ -1,0 +1,367 @@
+.page {
+  min-height: 100%;
+  background: #0f1011;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page::-webkit-scrollbar {
+  display: none;
+}
+
+.hero {
+  position: relative;
+  height: 310px;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.42)),
+    url("/assets/backgrounds/running-hero.jpg") center / cover no-repeat;
+}
+
+.heroOverlay {
+  height: 100%;
+  padding: 46px var(--space-6) 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: var(--color-white);
+}
+
+.avatar {
+  width: 43px;
+  height: 43px;
+  border: 1.5px solid rgba(255, 255, 255, 0.86);
+  border-radius: 50%;
+  flex: 0 0 43px;
+  object-fit: cover;
+}
+
+.greeting {
+  display: grid;
+  gap: 2px;
+}
+
+.greeting span {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 21px;
+}
+
+.greeting strong {
+  color: var(--color-white);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.headerActions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.headerButton {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.headerDivider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.summaryCard {
+  position: absolute;
+  left: var(--space-6);
+  right: var(--space-6);
+  bottom: 103px;
+  z-index: 3;
+  height: 90px;
+  padding: 21px 20px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  align-items: center;
+  background: #2d3238;
+  box-shadow: 0 18px 34px #0000003d;
+}
+
+.metric {
+  min-width: 0;
+  overflow: hidden;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.metricTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-white);
+}
+
+.metricTitle span {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.metric p {
+  margin: 14px 0 0;
+  color: var(--color-white);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  white-space: nowrap;
+}
+
+.metric p span {
+  margin-left: 3px;
+  color: #bec7d2;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.metric svg {
+  color: #f9bd3e;
+}
+
+.stepMetric svg {
+  color: #28d49a;
+}
+
+.heartMetric svg {
+  color: #ff7f80;
+}
+
+.metricDivider {
+  width: 1px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.panel {
+  position: relative;
+  z-index: 2;
+  margin-top: -78px;
+  min-height: calc(100vh - 292px);
+  padding: 66px var(--space-6) 72px;
+  border-radius: 34px 34px 0 0;
+  background: var(--color-background);
+}
+
+.section {
+  margin-top: -40px;
+}
+
+.section + .section {
+  margin-top: 20px;
+}
+
+.section h2 {
+  margin: 0 0 20px;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.activityRow {
+  margin: 0 calc(var(--space-6) * -1);
+  padding: 0 var(--space-6) 4px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.activityRow::-webkit-scrollbar {
+  display: none;
+}
+
+.activityCard {
+  width: 92px;
+  height: 86px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 92px;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+  box-shadow: 0 10px 24px #39434f17;
+  cursor: pointer;
+}
+
+.activityCard span {
+  color: #5f6874;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.activitySelected {
+  color: var(--color-white);
+  background: var(--color-primary-blue);
+  box-shadow: 0 12px 24px rgba(35, 135, 237, 0.26);
+}
+
+.activitySelected span {
+  color: var(--color-white);
+}
+
+.habitsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.habitCard {
+  position: relative;
+  height: 166px;
+  padding: 16px 15px;
+  border-radius: 15px;
+  background: var(--color-white);
+  box-shadow: 0 8px 18px #39434f12;
+  overflow: hidden;
+}
+
+.habitIllustration {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  margin-bottom: 10px;
+  display: grid;
+  place-items: center;
+  left: -10px;
+  top: -10px;
+}
+
+.habitRing {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.14;
+  box-shadow:
+    0 0 0 2px currentColor,
+    0 0 0 1px currentColor;
+}
+
+.habitCircle {
+  position: relative;
+  z-index: 1;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: currentColor;
+  background: #f9bd3e2e;
+  left: 0;
+  top: 0;
+}
+
+.goals {
+  color: #ff6f55;
+}
+
+.nutrition {
+  color: #8dc45a;
+}
+
+.challenges {
+  color: #55a8e8;
+}
+
+.habitCard h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.habitCard p {
+  margin: 8px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.reportHabit {
+  padding-top: 28px;
+}
+
+.reportHabit p {
+  max-width: 118px;
+}
+
+.reportButton {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid var(--color-primary-blue);
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary-blue);
+  cursor: pointer;
+}
+
+.message {
+  min-height: 100%;
+  margin: 0;
+  padding: var(--space-8);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.errorBox {
+  margin-top: var(--space-8);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card-soft);
+}
+
+.errorBox p {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.errorBox button {
+  color: var(--color-primary-blue);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,0 +1,44 @@
+.header {
+  flex-shrink: 0;
+  padding-top: 44px;
+}
+
+.topRow {
+  height: 32px;
+  display: grid;
+  grid-template-columns: 30px 1px auto 1fr;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.backButton {
+  width: 30px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.verticalDivider {
+  width: 1px;
+  height: 32px;
+  background: #e6ebf1;
+}
+
+.stepLabel {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.skipButton {
+  justify-self: end;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}

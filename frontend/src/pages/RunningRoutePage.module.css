@@ -1,0 +1,354 @@
+.page {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: #eef3f7;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mapShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0 17%, rgba(255, 255, 255, 0) 34%);
+  pointer-events: none;
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  padding: 30px var(--space-6) 0;
+  display: grid;
+  grid-template-columns: 30px 1px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.backButton {
+  width: 30px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.headerRouteLine {
+  width: 1px;
+  height: 66px;
+  background:
+    radial-gradient(circle at 50% 47px, #effbe8 0 9px, #7ecb42 10px 13px, transparent 14px),
+    linear-gradient(164deg, transparent 0 20%, #cdeeb8 21% 80%, transparent 81%);
+}
+
+.header p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.header h1 {
+  margin: 6px 0 0;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.header div span {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.header div span i {
+  width: 1px;
+  height: 18px;
+  background: #c7d2df;
+}
+
+.routeLayer {
+  position: absolute;
+  inset: 280px 0 205px;
+  z-index: 2;
+}
+
+.routeSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.routeSvg polyline {
+  fill: none;
+  stroke: #2387ed;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.mapPin {
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  width: 76px;
+  height: auto;
+  transform: translate(-50%, -78%);
+  filter: drop-shadow(0 8px 12px rgba(57, 67, 79, 0.18));
+}
+
+.destinationMarker,
+.midMarker {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(35, 135, 237, 0.16);
+}
+
+.destinationMarker {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #2387ed;
+  background: #9fd3ff;
+}
+
+.midMarker {
+  width: 28px;
+  height: 28px;
+  border: 4px solid #ffffff;
+  background: #b7e183;
+  box-shadow: 0 0 0 4px rgba(35, 135, 237, 0.85);
+}
+
+.bottomPanel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 0 var(--space-6) 50px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff 26%);
+}
+
+.metrics {
+  display: flex;
+  gap: 14px;
+}
+
+.metricCard {
+  position: relative;
+  width: 99px;
+  height: 156px;
+  padding: 28px 14px 17px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--color-text-secondary);
+  background:
+    radial-gradient(circle 41px at 5px 5px, rgba(226, 232, 238, 0.28) 0 99%, transparent 100%),
+    radial-gradient(circle 63px at 14px 14px, rgba(226, 232, 238, 0.22) 0 99%, transparent 100%),
+    radial-gradient(circle 86px at 18px 18px, rgba(226, 232, 238, 0.16) 0 99%, transparent 100%),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 22px #39434f14;
+  overflow: hidden;
+}
+
+.metricCard::before {
+  content: "";
+  position: absolute;
+  left: -50px;
+  top: -58px;
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  background: rgba(226, 232, 238, 0.3);
+  box-shadow:
+    24px 0 0 rgba(226, 232, 238, 0.2),
+    47px 0 0 rgba(226, 232, 238, 0.12);
+}
+
+.metricCard::after {
+  content: "";
+  position: absolute;
+  left: -42px;
+  top: -46px;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: rgba(226, 232, 238, 0.22);
+  pointer-events: none;
+}
+
+.metricCard svg {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 1;
+}
+
+.metricCard strong {
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-primary);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 25px;
+  white-space: nowrap;
+}
+
+.metricCard span {
+  position: relative;
+  z-index: 1;
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.selectedMetric {
+  color: var(--color-white);
+  background:
+    radial-gradient(circle 41px at 5px 5px, rgba(255, 255, 255, 0.07) 0 99%, transparent 100%),
+    radial-gradient(circle 63px at 14px 14px, rgba(255, 255, 255, 0.06) 0 99%, transparent 100%),
+    radial-gradient(circle 86px at 18px 18px, rgba(255, 255, 255, 0.05) 0 99%, transparent 100%),
+    linear-gradient(160deg, #4fa3f7 0%, #2f7ded 55%, #1f6de0 100%);
+  box-shadow: 0 14px 26px rgba(35, 135, 237, 0.24);
+}
+
+.selectedMetric::before {
+  left: -59px;
+  top: -59px;
+  width: 171px;
+  height: 171px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+}
+
+.selectedMetric::after {
+  left: -41px;
+  top: -41px;
+  width: 126px;
+  height: 126px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.selectedMetric strong,
+.selectedMetric span {
+  color: var(--color-white);
+}
+
+.timerRow {
+  margin-top: 22px;
+  padding-top: 24px;
+  border-top: 1px solid #edf1f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timerRow p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.pausedText {
+  color: var(--color-primary-blue);
+}
+
+.timerRow strong {
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.timerRow strong i {
+  width: 1px;
+  height: 22px;
+  background: #d8e0e8;
+}
+
+.timerRow strong svg {
+  color: #35cf8b;
+}
+
+.pauseButton {
+  width: 56px;
+  height: 56px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  color: var(--color-white);
+  background: var(--color-primary-blue);
+  box-shadow: 0 12px 24px rgba(35, 135, 237, 0.28);
+  cursor: pointer;
+}
+
+.pauseButton.paused {
+  background: #39434f;
+}
+
+.message {
+  min-height: 100%;
+  margin: 0;
+  padding: var(--space-8);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.errorBox {
+  margin: var(--space-8);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card-soft);
+}
+
+.errorBox p {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.errorBox button {
+  color: var(--color-primary-blue);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,0 +1,154 @@
+.card {
+  position: relative;
+  width: 100%;
+  height: 112px;
+  flex: 0 0 112px;
+  border-radius: 16px;
+  padding: 27px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  color: var(--color-text-primary);
+  background: var(--color-white);
+  box-shadow: 0 10px 24px rgba(57, 67, 79, 0.08);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.selected {
+  color: var(--color-white);
+  background: var(--color-yellow);
+  box-shadow: 0 10px 20px rgba(249, 189, 62, 0.32);
+}
+
+.imageArea {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.imageArea::before,
+.imageArea::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.imageArea::before {
+  width: 150px;
+  height: 150px;
+  right: -76px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(237, 241, 245, 0.75);
+}
+
+.imageArea::after {
+  width: 132px;
+  height: 132px;
+  right: -58px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.selected .imageArea::before {
+  background: rgba(217, 157, 35, 0.18);
+}
+
+.selected .imageArea::after {
+  background: rgba(217, 157, 35, 0.14);
+}
+
+.image {
+  position: absolute;
+  z-index: 1;
+  right: -55px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  position: absolute;
+  z-index: 1;
+  right: -46px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary-blue);
+  background: var(--color-progress-track);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.selected .imagePlaceholder {
+  color: var(--color-yellow);
+  background: var(--color-white);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.badge {
+  width: fit-content;
+  height: 28px;
+  padding: 4px 11px 4px 6px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  border: 1px solid #e4e9ef;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.selected .badge {
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: transparent;
+}
+
+.badgeDot {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 3px solid #d8ecff;
+  background: var(--color-primary-blue);
+  box-shadow: inset 0 0 0 2px var(--color-primary-blue);
+}
+
+.selected .badgeDot {
+  border-color: var(--color-white);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}

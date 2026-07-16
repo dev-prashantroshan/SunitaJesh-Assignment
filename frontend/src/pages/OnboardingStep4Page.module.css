@@ -1,0 +1,79 @@
+.progressWrap {
+  flex-shrink: 0;
+  margin-top: 24px;
+}
+
+.message {
+  margin: var(--space-10) 0 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.errorBox {
+  margin-top: var(--space-10);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card-soft);
+}
+
+.errorBox p {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.errorBox button {
+  color: var(--color-primary-blue);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.inlineError {
+  margin: var(--space-4) 0 0;
+  color: #d64a3a;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.options {
+  flex: 1;
+  min-height: 0;
+  margin-top: 36px;
+  padding-bottom: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 10px;
+  row-gap: 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.options > button {
+  padding-left: 11px;
+  padding-right: 11px;
+  gap: 8px;
+}
+
+.options::-webkit-scrollbar {
+  display: none;
+}
+
+.footer {
+  flex-shrink: 0;
+  z-index: 10;
+  margin: 0 calc(var(--space-6) * -1);
+  padding: 26px var(--space-6) 28px;
+  border-radius: 28px 28px 0 0;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 -18px 34px rgba(57, 67, 79, 0.08);
+}
