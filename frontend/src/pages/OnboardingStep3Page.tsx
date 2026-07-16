@@ -6,6 +6,7 @@ import { PageContainer } from "../components/common/PageContainer";
 import { ProgressBar } from "../components/common/ProgressBar";
 import { QuestionHeader } from "../components/common/QuestionHeader";
 import { TopNavigation } from "../components/common/TopNavigation";
+import { apiUrl } from "../utils/api";
 import styles from "./OnboardingStep3Page.module.css";
 
 interface StepOption {
@@ -22,7 +23,6 @@ interface StepData {
   options: StepOption[];
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const DEVICE_ID = "device-thomas-001";
 
 export function OnboardingStep3Page() {
@@ -38,7 +38,7 @@ export function OnboardingStep3Page() {
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/steps/3`);
+      const response = await fetch(apiUrl("/api/steps/3"));
       const result = await response.json();
 
       if (!response.ok || !result.success) {
@@ -82,7 +82,7 @@ export function OnboardingStep3Page() {
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/onboarding/answers/3`, {
+      const response = await fetch(apiUrl("/api/onboarding/answers/3"), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

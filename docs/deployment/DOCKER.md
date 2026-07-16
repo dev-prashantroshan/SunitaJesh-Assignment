@@ -50,7 +50,7 @@ The frontend is built with `VITE_API_BASE_URL=http://localhost:5000`, which is r
 
 CodeSandbox has removed GitHub repository import for this workflow. Create a Docker sandbox, then clone the public GitHub repository in the sandbox terminal and enter the repository directory.
 
-Start the CodeSandbox variant, which builds the frontend with the same-origin `/api` URL and proxies API requests to the backend service:
+Start the CodeSandbox variant, which builds the frontend with an empty API base URL so its existing `/api` endpoint paths remain same-origin and are proxied to the backend service:
 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.codesandbox.yml up --build -d

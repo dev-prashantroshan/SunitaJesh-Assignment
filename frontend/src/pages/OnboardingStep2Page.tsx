@@ -6,6 +6,7 @@ import { ProgressBar } from "../components/common/ProgressBar";
 import { QuestionHeader } from "../components/common/QuestionHeader";
 import { SportCard } from "../components/common/SportCard";
 import { TopNavigation } from "../components/common/TopNavigation";
+import { apiUrl } from "../utils/api";
 import styles from "./OnboardingStep2Page.module.css";
 
 interface StepOption {
@@ -25,7 +26,6 @@ interface StepData {
   options: StepOption[];
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const DEVICE_ID = "device-thomas-001";
 
 export function OnboardingStep2Page() {
@@ -41,7 +41,7 @@ export function OnboardingStep2Page() {
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/steps/2`);
+      const response = await fetch(apiUrl("/api/steps/2"));
       const result = await response.json();
 
       if (!response.ok || !result.success) {
@@ -85,7 +85,7 @@ export function OnboardingStep2Page() {
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/onboarding/answers/2`, {
+      const response = await fetch(apiUrl("/api/onboarding/answers/2"), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
