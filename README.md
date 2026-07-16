@@ -82,6 +82,35 @@ docs/
 
 Generated folders such as `node_modules/`, `dist/`, and local browser verification folders are not part of the source design.
 
+## Quick Start (Recommended)
+
+Prerequisites:
+
+- Git
+- Docker Desktop
+
+### Step 1: Clone the repository
+
+```powershell
+git clone <repository-url>
+cd SunitaJesh-Assignment
+```
+
+### Step 2: Run the launcher
+
+```powershell
+.\start.ps1
+```
+
+The script automatically:
+
+- starts Docker Compose
+- waits for the backend
+- seeds MongoDB
+- opens the frontend in your default browser
+
+No `npm install` is required when using Docker. The manual local and Docker instructions remain available below.
+
 ## Prerequisites
 
 Install these before setup:
