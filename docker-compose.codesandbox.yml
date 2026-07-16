@@ -1,0 +1,6 @@
+services:
+  frontend:
+    build:
+      args:
+        VITE_API_BASE_URL: /api
+        NGINX_CONFIG: nginx.codesandbox.conf
