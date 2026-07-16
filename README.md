@@ -4,6 +4,43 @@ A MERN-style fitness assessment application with a TypeScript/Express/MongoDB ba
 
 The project lets a sample user complete onboarding questions, view a personalized journey dashboard, open a running dashboard, inspect an activity tracking screen, and view an expanded running route.
 
+## Quick Start (Recommended)
+
+Prerequisites:
+
+- Git
+- Docker Desktop
+
+### Step 1: Clone the repository
+
+```powershell
+git clone <repository-url>
+cd SunitaJesh-Assignment
+```
+
+### Step 2: Start Docker Desktop
+
+Wait until Docker Desktop reports that its engine is running.
+
+### Step 3: Run the launcher from PowerShell
+
+Open PowerShell in the repository folder and run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\start.ps1
+```
+
+Windows normally does not execute `.ps1` files by double-clicking them. If needed, open the repository in File Explorer, type `powershell` in the address bar, press Enter, and then run the command above.
+
+The script automatically:
+
+- starts Docker Compose
+- waits for the backend
+- seeds MongoDB
+- opens the frontend in your default browser
+
+No `npm install` is required when using Docker. The manual local and Docker instructions remain available below.
+
 ## Main Flow
 
 1. Start at `/onboarding/2`.
@@ -81,35 +118,6 @@ docs/
 ```
 
 Generated folders such as `node_modules/`, `dist/`, and local browser verification folders are not part of the source design.
-
-## Quick Start (Recommended)
-
-Prerequisites:
-
-- Git
-- Docker Desktop
-
-### Step 1: Clone the repository
-
-```powershell
-git clone <repository-url>
-cd SunitaJesh-Assignment
-```
-
-### Step 2: Run the launcher
-
-```powershell
-.\start.ps1
-```
-
-The script automatically:
-
-- starts Docker Compose
-- waits for the backend
-- seeds MongoDB
-- opens the frontend in your default browser
-
-No `npm install` is required when using Docker. The manual local and Docker instructions remain available below.
 
 ## Prerequisites
 
