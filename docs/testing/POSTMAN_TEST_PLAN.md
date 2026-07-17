@@ -179,4 +179,6 @@ backend/postman/fitness-assessment.postman_collection.json
 - Use invalid ObjectIds for journeys and runs.
 - Use invalid onboarding option ids.
 - Send too many selections for single-select steps.
+- Send missing, empty, and whitespace-only details with Step 6 `health-yes`.
+- Send multiple valid option ids for Step 8 and verify all are stored.
 - Send Step 6 details over 250 characters.

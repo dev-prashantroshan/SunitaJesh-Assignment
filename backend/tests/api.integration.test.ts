@@ -90,11 +90,16 @@ const seedSteps = async (): Promise<void> => {
       stepId: 8,
       title: "Improvement goal",
       question: "What do you want to improve?",
-      helperText: "Select one option:",
-      type: STEP_TYPES.SINGLE_SELECT,
+      helperText: "Select all that apply:",
+      type: STEP_TYPES.MULTI_SELECT,
       minSelections: 1,
-      maxSelections: 1,
-      options: [{ id: "reduce-stress", label: "Reduce stress" }],
+      maxSelections: 4,
+      options: [
+        { id: "reduce-stress", label: "Reduce stress" },
+        { id: "improve-sleep", label: "Improve sleep" },
+        { id: "build-strength", label: "Build strength" },
+        { id: "lose-weight", label: "Lose weight" },
+      ],
     },
   ]);
 };
@@ -145,6 +150,55 @@ describe("Backend API integration", () => {
     expect(response.body.success).toBe(false);
     expect(response.body.error.code).toBe("INVALID_OPTION");
   });
+
+  it("PUT /api/onboarding/answers/8 saves multiple improvement goals", async () => {
+    await seedSteps();
+
+    const selectedOptionIds = ["reduce-stress", "improve-sleep", "build-strength", "lose-weight"];
+    const response = await request(app)
+      .put("/api/onboarding/answers/8")
+      .set("x-device-id", deviceId)
+      .send({ selectedOptionIds, details: "" });
+
+    const storedAnswer = await OnboardingAnswer.findOne({ deviceId, stepId: 8 }).lean();
+
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    expect(response.body.data.answer.selectedOptionIds).toEqual(selectedOptionIds);
+    expect(storedAnswer?.selectedOptionIds).toEqual(selectedOptionIds);
+  });
+
+  it("PUT /api/onboarding/answers/8 requires at least one improvement goal", async () => {
+    await seedSteps();
+
+    const response = await request(app)
+      .put("/api/onboarding/answers/8")
+      .set("x-device-id", deviceId)
+      .send({ selectedOptionIds: [], details: "" });
+
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    expect(response.body.error.code).toBe("INVALID_SELECTION_COUNT");
+  });
+
+  it.each([undefined, "", "   "])(
+    "PUT /api/onboarding/answers/6 rejects missing or blank details when health-yes is selected",
+    async (details) => {
+      await seedSteps();
+
+      const response = await request(app)
+        .put("/api/onboarding/answers/6")
+        .set("x-device-id", deviceId)
+        .send({
+          selectedOptionIds: [HEALTH_OPTION_IDS.HEALTH_YES],
+          ...(details !== undefined ? { details } : {}),
+        });
+
+      expect(response.status).toBe(400);
+      expect(response.body.success).toBe(false);
+      expect(response.body.error.code).toBe("DETAILS_REQUIRED");
+    }
+  );
 
   it("PUT /api/onboarding/answers/6 rejects details longer than 250 characters", async () => {
     await seedSteps();

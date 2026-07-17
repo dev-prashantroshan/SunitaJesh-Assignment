@@ -82,6 +82,11 @@
   line-height: 20px;
 }
 
+.requiredIndicator {
+  margin-left: 4px;
+  color: #d64a3a;
+}
+
 .textareaWrap {
   position: relative;
 }

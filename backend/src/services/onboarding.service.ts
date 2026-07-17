@@ -137,7 +137,11 @@ const prepareDetails = (step: StepDocument, selectedOptionIds: string[], details
     const selectedOption = step.options.find((option) => option.id === selectedOptionIds[0]);
     const selectedYes = selectedOption?.id === HEALTH_OPTION_IDS.HEALTH_YES;
 
-    return selectedYes && typeof detailsText === "string" && detailsText.length > 0 ? detailsText : undefined;
+    if (selectedYes && detailsText.trim().length === 0) {
+      throw new ApiError(400, "Details are required when a health condition is selected", "DETAILS_REQUIRED");
+    }
+
+    return selectedYes ? detailsText : undefined;
   }
 
   return typeof detailsText === "string" && detailsText.length > 0 ? detailsText : undefined;

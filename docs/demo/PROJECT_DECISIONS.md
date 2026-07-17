@@ -22,8 +22,9 @@ Each decision lists the reason, trade-off, and what could change in production.
 | Embedded route coordinates | Simple run-route retrieval. | Large routes could bloat documents. | Store route points separately or in object storage. |
 | Separate JourneyFavorite model | Avoids mutating journey documents per device. | Requires extra lookup. | Add indexes and user-based favorites. |
 | Idempotent favorite/unfavorite | Better mobile retry behavior. | Duplicate calls do not signal conflict. | Keep idempotency. |
-| Steps 4 and 8 single-select | Matches written requirements. | Figma helper text sometimes differed. | Keep product requirements as source of truth. |
-| Step 6 details optional | User can select Yes without being forced to type. | Less medical context. | Add required reason only if product needs it. |
+| Step 4 single-select | Matches the agreed training-location behavior. | Only one location can be saved. | Keep the product requirement as source of truth. |
+| Step 8 multi-select | Supports selecting 1 to 4 improvement goals after team review. | More than one goal can influence future recommendations. | Store all selected option ids in the existing answer array. |
+| Step 6 details required for Yes | Ensures a selected health condition includes meaningful context. | Adds one required input for Yes responses. | Reject missing, empty, and whitespace-only details in UI and API. |
 | Step 6 clears details when No selected | Prevents stale sensitive data. | Requires explicit unset in MongoDB. | Keep this privacy behavior. |
 | External content normalized | UI receives stable shape. | Source content is generic. | Replace with real content service. |
 | In-memory cache | Simple, no Redis dependency. | Cache resets on restart and is per instance. | Use Redis or CDN cache. |

@@ -18,6 +18,8 @@ interface StepData {
   stepId: number;
   question: string;
   helperText: string;
+  minSelections?: number;
+  maxSelections?: number;
   options: StepOption[];
 }
 
@@ -40,7 +42,8 @@ export function OnboardingStep8Page() {
   const navigate = useNavigate();
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [step, setStep] = useState<StepData | null>(null);
-  const [selectedOptionId, setSelectedOptionId] = useState("");
+  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
+  const [lastInteractedOptionId, setLastInteractedOptionId] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -70,19 +73,39 @@ export function OnboardingStep8Page() {
   }, []);
 
   useEffect(() => {
-    if (!selectedOptionId) {
+    if (!lastInteractedOptionId) {
       return;
     }
 
-    cardRefs.current[selectedOptionId]?.scrollIntoView({
+    cardRefs.current[lastInteractedOptionId]?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
       inline: "center",
     });
-  }, [selectedOptionId]);
+  }, [lastInteractedOptionId]);
+
+  const minimumSelections = step?.minSelections ?? 1;
+  const maximumSelections = step?.maxSelections ?? step?.options.length ?? 4;
+  const canContinue =
+    selectedOptionIds.length >= minimumSelections && selectedOptionIds.length <= maximumSelections;
+
+  const handleSelect = (optionId: string) => {
+    setLastInteractedOptionId(optionId);
+    setSelectedOptionIds((current) => {
+      if (current.includes(optionId)) {
+        return current.filter((selectedId) => selectedId !== optionId);
+      }
+
+      if (current.length >= maximumSelections) {
+        return current;
+      }
+
+      return [...current, optionId];
+    });
+  };
 
   const handleContinue = async () => {
-    if (!selectedOptionId) {
+    if (!canContinue) {
       return;
     }
 
@@ -96,7 +119,7 @@ export function OnboardingStep8Page() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          selectedOptionIds: [selectedOptionId],
+          selectedOptionIds,
           details: "",
         }),
       });
@@ -153,17 +176,15 @@ export function OnboardingStep8Page() {
                   title={option.label}
                   description={descriptionByOptionId[option.id] ?? ""}
                   imageUrl={imageByOptionId[option.id]}
-                  selected={selectedOptionId === option.id}
-                  onClick={() =>
-                    setSelectedOptionId((current) => (current === option.id ? "" : option.id))
-                  }
+                  selected={selectedOptionIds.includes(option.id)}
+                  onClick={() => handleSelect(option.id)}
                 />
               </div>
             ))}
           </div>
           <div className={styles.footer}>
             <ContinueButton
-              disabled={!selectedOptionId}
+              disabled={!canContinue}
               loading={saving}
               onClick={handleContinue}
             />
