@@ -48,7 +48,26 @@ The frontend is built with `VITE_API_BASE_URL=http://localhost:5000`, which is r
 
 ## CodeSandbox
 
-CodeSandbox has removed GitHub repository import for this workflow. Create a Docker sandbox, then clone the public GitHub repository in the sandbox terminal and enter the repository directory.
+CodeSandbox has removed GitHub repository import for this workflow. Create a Docker sandbox, then clone the public GitHub repository in its terminal and enter the repository directory. The repository includes `.codesandbox/docker-compose.yml`, which CodeSandbox can detect automatically when it is at the sandbox workspace root.
+
+Run this command to start the stack explicitly, regardless of automatic detection:
+
+```bash
+docker compose -f .codesandbox/docker-compose.yml up --build -d
+```
+
+This waits for MongoDB, seeds the initial data, waits for the backend health check, and then starts the frontend.
+
+Open the forwarded port `5173` from the CodeSandbox Ports or DevTools panel. The landing page redirects to `/onboarding/2`, and browser API requests remain same-origin through the NGINX `/api` proxy.
+
+To inspect automatic startup from the sandbox terminal:
+
+```bash
+docker compose -f .codesandbox/docker-compose.yml ps
+docker compose -f .codesandbox/docker-compose.yml logs -f
+```
+
+The existing manual fallback remains available if automatic startup is disabled in a sandbox:
 
 Start the CodeSandbox variant, which builds the frontend with an empty API base URL so its existing `/api` endpoint paths remain same-origin and are proxied to the backend service:
 
@@ -56,7 +75,7 @@ Start the CodeSandbox variant, which builds the frontend with an empty API base 
 docker compose -f docker-compose.yml -f docker-compose.codesandbox.yml up --build -d
 ```
 
-Seed MongoDB explicitly:
+Seed MongoDB explicitly for the manual fallback:
 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.codesandbox.yml exec backend npm run seed
