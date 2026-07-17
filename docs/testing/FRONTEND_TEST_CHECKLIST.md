@@ -28,8 +28,9 @@ Use this checklist in a browser at `http://localhost:5173` after backend and Mon
 - [ ] Back works on Steps 2-8.
 - [ ] Skip works on Steps 2-8 without saving.
 - [ ] Step 6 shows details only for `health-yes`.
+- [ ] Step 6 marks details as required for `health-yes` and blocks blank or whitespace-only input.
 - [ ] Step 6 clears details when `health-yes` is deselected or `health-no` is selected.
-- [ ] Step 8 carousel/card selection works as single-select.
+- [ ] Step 8 carousel/card selection supports 1 to 4 selected options.
 - [ ] Step 8 Continue navigates to `/journey`.
 
 ## Journey

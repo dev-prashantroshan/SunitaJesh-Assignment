@@ -137,10 +137,10 @@ const steps = [
     stepId: 8,
     title: "Improvement goal",
     question: "What do you want to improve?",
-    helperText: "Select one option:",
-    type: STEP_TYPES.SINGLE_SELECT,
+    helperText: "Select all that apply:",
+    type: STEP_TYPES.MULTI_SELECT,
     minSelections: 1,
-    maxSelections: 1,
+    maxSelections: 4,
     options: [
       { id: "reduce-stress", label: "Reduce stress" },
       { id: "improve-sleep", label: "Improve sleep" },

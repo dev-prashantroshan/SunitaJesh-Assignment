@@ -75,7 +75,7 @@ export function OnboardingStep6Page() {
   };
 
   const handleContinue = async () => {
-    if (!selectedOptionId) {
+    if (!selectedOptionId || (selectedOptionId === HEALTH_YES_ID && details.trim().length === 0)) {
       return;
     }
 
@@ -109,6 +109,8 @@ export function OnboardingStep6Page() {
 
   const detailsMaxLength = step?.detailsMaxLength ?? 250;
   const showDetails = selectedOptionId === HEALTH_YES_ID;
+  const hasRequiredDetails = !showDetails || details.trim().length > 0;
+  const canContinue = Boolean(selectedOptionId) && hasRequiredDetails;
 
   return (
     <PageContainer>
@@ -153,6 +155,9 @@ export function OnboardingStep6Page() {
                 <div className={styles.divider} />
                 <label className={styles.detailsLabel} htmlFor="health-details">
                   Tell us more about your condition
+                  <span className={styles.requiredIndicator} aria-hidden="true">
+                    *
+                  </span>
                 </label>
                 <div className={styles.textareaWrap}>
                   <textarea
@@ -160,6 +165,8 @@ export function OnboardingStep6Page() {
                     className={styles.textarea}
                     maxLength={detailsMaxLength}
                     placeholder="Suggested"
+                    required
+                    aria-required="true"
                     value={details}
                     onChange={handleDetailsChange}
                   />
@@ -172,7 +179,7 @@ export function OnboardingStep6Page() {
           </div>
           <div className={styles.footer}>
             <ContinueButton
-              disabled={!selectedOptionId}
+              disabled={!canContinue}
               loading={saving}
               onClick={handleContinue}
             />
