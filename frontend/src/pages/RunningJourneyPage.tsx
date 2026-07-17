@@ -14,7 +14,7 @@ import {
   Weight,
 } from "lucide-react";
 import styles from "./RunningJourneyPage.module.css";
-import { apiUrl } from "../utils/api";
+import { apiFetch } from "../utils/api";
 
 interface CurrentRun {
   id: string;
@@ -27,7 +27,6 @@ interface CurrentRun {
   steps: number;
 }
 
-const DEVICE_ID = "device-thomas-001";
 const reportText = "All your details in a single place";
 
 function HeroHeader({ run }: { run: CurrentRun }) {
@@ -172,11 +171,7 @@ export function RunningJourneyPage() {
     setError("");
 
     try {
-      const response = await fetch(apiUrl("/api/runs/current"), {
-        headers: {
-          "x-device-id": DEVICE_ID,
-        },
-      });
+      const response = await apiFetch("/api/runs/current");
       const result = await response.json();
 
       if (!response.ok || !result.success) {

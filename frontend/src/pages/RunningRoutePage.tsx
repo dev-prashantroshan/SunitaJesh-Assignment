@@ -11,7 +11,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import styles from "./RunningRoutePage.module.css";
-import { apiUrl } from "../utils/api";
+import { apiFetch } from "../utils/api";
 
 interface CurrentRun {
   id: string;
@@ -32,8 +32,6 @@ interface OverlayPoint {
   x: number;
   y: number;
 }
-
-const DEVICE_ID = "device-thomas-001";
 
 function formatCompactSteps(steps: number) {
   if (steps < 1000) {
@@ -76,11 +74,7 @@ export function RunningRoutePage() {
     setError("");
 
     try {
-      const runResponse = await fetch(apiUrl("/api/runs/current"), {
-        headers: {
-          "x-device-id": DEVICE_ID,
-        },
-      });
+      const runResponse = await apiFetch("/api/runs/current");
       const runResult = await runResponse.json();
 
       if (!runResponse.ok || !runResult.success) {
@@ -89,11 +83,7 @@ export function RunningRoutePage() {
 
       const currentRun = runResult.data.run as CurrentRun;
       const routeId = runId ?? currentRun.id;
-      const routeResponse = await fetch(apiUrl(`/api/runs/${routeId}/route`), {
-        headers: {
-          "x-device-id": DEVICE_ID,
-        },
-      });
+      const routeResponse = await apiFetch(`/api/runs/${routeId}/route`);
       const routeResult = await routeResponse.json();
 
       if (!routeResponse.ok || !routeResult.success) {

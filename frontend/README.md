@@ -91,7 +91,7 @@ npm run build
 
 ## Backend Dependency
 
-The frontend expects the backend to be running at `VITE_API_BASE_URL`. Most protected requests use sample device id `device-thomas-001` through the `x-device-id` header.
+The frontend expects the backend to be running at `VITE_API_BASE_URL`. A browser-specific device ID is generated on first use, stored under `fitness-device-id` in `localStorage`, and sent through the `x-device-id` header by the shared API helper.
 
 ## Screen-by-Screen API Usage
 

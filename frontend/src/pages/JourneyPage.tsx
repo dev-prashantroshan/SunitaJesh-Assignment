@@ -11,7 +11,7 @@ import {
   Target,
 } from "lucide-react";
 import styles from "./JourneyPage.module.css";
-import { apiUrl } from "../utils/api";
+import { apiFetch } from "../utils/api";
 
 interface Journey {
   id: string;
@@ -24,7 +24,6 @@ interface Journey {
   featured: boolean;
 }
 
-const DEVICE_ID = "device-thomas-001";
 const fallbackReport = "All your details in a single place";
 
 function GreetingHeader() {
@@ -159,11 +158,7 @@ export function JourneyPage() {
     setError("");
 
     try {
-      const response = await fetch(apiUrl("/api/journeys"), {
-        headers: {
-          "x-device-id": DEVICE_ID,
-        },
-      });
+      const response = await apiFetch("/api/journeys");
       const result = await response.json();
 
       if (!response.ok || !result.success) {
@@ -183,7 +178,7 @@ export function JourneyPage() {
     setReportLoading(true);
 
     try {
-      const response = await fetch(apiUrl("/api/content/placeholder"));
+      const response = await apiFetch("/api/content/placeholder");
       const result = await response.json();
 
       if (!response.ok || !result.success || typeof result.data?.description !== "string") {

@@ -15,7 +15,7 @@ import {
   Sprout,
 } from "lucide-react";
 import styles from "./RunningActivityPage.module.css";
-import { apiUrl } from "../utils/api";
+import { apiFetch } from "../utils/api";
 
 interface CurrentRun {
   id: string;
@@ -25,8 +25,6 @@ interface CurrentRun {
   heartRateBpm: number;
   steps: number;
 }
-
-const DEVICE_ID = "device-thomas-001";
 
 function HabitMetricCard({
   title,
@@ -77,11 +75,7 @@ export function RunningActivityPage() {
     setError("");
 
     try {
-      const response = await fetch(apiUrl("/api/runs/current"), {
-        headers: {
-          "x-device-id": DEVICE_ID,
-        },
-      });
+      const response = await apiFetch("/api/runs/current");
       const result = await response.json();
 
       if (!response.ok || !result.success) {

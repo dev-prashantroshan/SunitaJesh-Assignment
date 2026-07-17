@@ -42,7 +42,7 @@ Seeding is intentionally not automatic because it clears and repopulates the app
 | Frontend | `http://localhost:5173` |
 | Backend health | `http://localhost:5000/api/health` |
 | Backend API | `http://localhost:5000/api` |
-| MongoDB host port | `localhost:27017` |
+| MongoDB host port | `localhost:27018` |
 
 The frontend is built with `VITE_API_BASE_URL=http://localhost:5000`, which is reachable by the user's browser. NGINX serves static assets and falls back to `index.html` for React Router routes.
 
@@ -123,7 +123,7 @@ docker compose up -d
 
 ## Port Conflicts
 
-The setup requires host ports `5173`, `5000`, and `27017`. If Compose reports that a port is already allocated:
+The setup requires host ports `5173`, `5000`, and `27018`. Port `27018` intentionally avoids conflicts with a locally installed MongoDB service on its default port `27017`. To inspect the Docker application's live database in MongoDB Compass, use `mongodb://localhost:27018/sunita-jesh-assignment`. If Compose reports that a port is already allocated:
 
 1. Stop the local frontend, backend, or MongoDB process using that port.
 2. Check existing containers with `docker ps`.

@@ -6,7 +6,7 @@ import { PageContainer } from "../components/common/PageContainer";
 import { ProgressBar } from "../components/common/ProgressBar";
 import { QuestionHeader } from "../components/common/QuestionHeader";
 import { TopNavigation } from "../components/common/TopNavigation";
-import { apiUrl } from "../utils/api";
+import { apiFetch } from "../utils/api";
 import styles from "./OnboardingStep4Page.module.css";
 
 interface StepOption {
@@ -23,8 +23,6 @@ interface StepData {
   options: StepOption[];
 }
 
-const DEVICE_ID = "device-thomas-001";
-
 export function OnboardingStep4Page() {
   const navigate = useNavigate();
   const [step, setStep] = useState<StepData | null>(null);
@@ -38,7 +36,7 @@ export function OnboardingStep4Page() {
     setError("");
 
     try {
-      const response = await fetch(apiUrl("/api/steps/4"));
+      const response = await apiFetch("/api/steps/4");
       const result = await response.json();
 
       if (!response.ok || !result.success) {
@@ -66,11 +64,10 @@ export function OnboardingStep4Page() {
     setError("");
 
     try {
-      const response = await fetch(apiUrl("/api/onboarding/answers/4"), {
+      const response = await apiFetch("/api/onboarding/answers/4", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "x-device-id": DEVICE_ID,
         },
         body: JSON.stringify({
           selectedOptionIds: [selectedOptionId],

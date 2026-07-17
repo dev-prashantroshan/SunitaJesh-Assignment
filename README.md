@@ -354,7 +354,7 @@ docker compose up -d --build
 docker compose exec backend npm run seed
 ```
 
-Open the frontend at `http://localhost:5173` or check the backend at `http://localhost:5000/api/health`. MongoDB is exposed on host port `27017` and stores data in the named `mongo-data` volume.
+Open the frontend at `http://localhost:5173` or check the backend at `http://localhost:5000/api/health`. Docker MongoDB is exposed on host port `27018` and stores data in the named `mongo-data` volume. To inspect the live Docker database in MongoDB Compass, connect to `mongodb://localhost:27018/sunita-jesh-assignment`.
 
 ```powershell
 docker compose logs -f
