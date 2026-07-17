@@ -244,4 +244,31 @@ describe("Backend API integration", () => {
     expect(response.body.success).toBe(false);
     expect(response.body.error.code).toBe("RUN_NOT_FOUND");
   });
+
+  it("GET /api/runs/current provisions a seeded demo run for a new device", async () => {
+    await Run.create({
+      deviceId,
+      title: "Morning Park Run",
+      activityType: "running",
+      distanceKm: 3.2,
+      durationSeconds: 1140,
+      calories: 240,
+      heartRateBpm: 136,
+      steps: 4200,
+      startedAt: new Date("2026-07-12T07:00:00.000Z"),
+      route: [{ latitude: 51.5007, longitude: -0.1246, order: 1 }],
+    });
+
+    const newDeviceId = "new-browser-device";
+    const response = await request(app)
+      .get("/api/runs/current")
+      .set("x-device-id", newDeviceId);
+    const provisionedRun = await Run.findOne({ deviceId: newDeviceId }).lean();
+
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    expect(response.body.data.run.title).toBe("Morning Park Run");
+    expect(provisionedRun?.deviceId).toBe(newDeviceId);
+    expect(provisionedRun?.route).toHaveLength(1);
+  });
 });

@@ -16,7 +16,7 @@ function App() {
   return (
     <AppShell>
       <Routes>
-        <Route path="/" element={<Navigate to="/onboarding/2" replace />} />
+        <Route path="/" element={<Navigate to="/onboarding/2" replace />} /> {/*when hitting the localhost it will be redirected to homepage automatically*/}
         <Route path="/onboarding/2" element={<OnboardingStep2Page />} />
         <Route path="/onboarding/3" element={<OnboardingStep3Page />} />
         <Route path="/onboarding/4" element={<OnboardingStep4Page />} />
@@ -29,7 +29,7 @@ function App() {
         <Route path="/running/activity" element={<RunningActivityPage />} />
         <Route path="/running/route" element={<RunningRoutePage />} />
         <Route path="/running/route/:runId" element={<RunningRoutePage />} />
-        <Route path="*" element={<Navigate to="/onboarding/2" replace />} />
+        <Route path="*" element={<Navigate to="/onboarding/2" replace />} /> {/* It will route any unidentified url to onboarding step 1*/}
       </Routes>
     </AppShell>
   );

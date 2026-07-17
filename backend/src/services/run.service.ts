@@ -42,7 +42,30 @@ const getOwnedRunOrThrow = async (deviceId: string, id: string): Promise<RunDocu
 };
 
 export const getCurrentRun = async (deviceId: string) => {
-  const run = await Run.findOne({ deviceId }).sort({ startedAt: -1 });
+  let run = await Run.findOne({ deviceId }).sort({ startedAt: -1 });
+
+  if (!run) {
+    const demoRun = await Run.findOne().sort({ startedAt: -1 });
+
+    if (demoRun) {
+      run = await Run.create({
+        deviceId,
+        title: demoRun.title,
+        activityType: demoRun.activityType,
+        distanceKm: demoRun.distanceKm,
+        durationSeconds: demoRun.durationSeconds,
+        calories: demoRun.calories,
+        heartRateBpm: demoRun.heartRateBpm,
+        steps: demoRun.steps,
+        startedAt: demoRun.startedAt,
+        route: demoRun.route.map((point) => ({
+          latitude: point.latitude,
+          longitude: point.longitude,
+          order: point.order,
+        })),
+      });
+    }
+  }
 
   if (!run) {
     throw new ApiError(404, "Run not found", "RUN_NOT_FOUND");

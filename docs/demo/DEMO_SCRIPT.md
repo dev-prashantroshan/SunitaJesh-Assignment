@@ -102,9 +102,9 @@ Duration: 5-7 minutes.
 ## 14. Automated Tests Demonstration
 
 - Show: `npm run test`.
-- Say: "There are 7 integration tests with a dedicated test database."
+- Say: "There are 8 integration tests with a dedicated test database."
 - Duration: 1 minute.
-- Question: "Why only 7?" Answer: "They cover core behavior without over-testing every field."
+- Question: "Why these 8?" Answer: "They cover core behavior and the new-device running regression without over-testing every field."
 
 ## 15. Error Handling Example
 

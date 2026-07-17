@@ -60,7 +60,7 @@
 ## Automated Tests
 
 - [ ] Run `npm run test` with `MONGODB_TEST_URI`.
-- [ ] 7 integration tests pass.
+- [ ] 8 integration tests pass.
 - [ ] Tests use real Express app.
 - [ ] Tests use dedicated test database.
 

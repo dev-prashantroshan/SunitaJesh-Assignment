@@ -164,7 +164,7 @@ If Bacon Ipsum times out, fails, returns non-2xx, or returns an unexpected shape
 
 ## Test Coverage
 
-The backend currently has 7 integration tests covering:
+The backend currently has 8 integration tests covering:
 
 - Steps list
 - Valid onboarding answer save
@@ -173,6 +173,7 @@ The backend currently has 7 integration tests covering:
 - Step 6 Yes to No detail clearing
 - Idempotent journey favorite
 - Run access blocked for another device
+- Demo run provisioning for a new browser device
 
 Run with:
 
