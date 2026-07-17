@@ -8,3 +8,11 @@
   box-shadow: var(--shadow-shell);
   overflow: hidden;
 }
+
+@media (max-width: 480px) {
+  .shell {
+    width: 100%;
+    max-height: none;
+    box-shadow: none;
+  }
+}
